@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import mysql.connector
 
 app = FastAPI()
@@ -25,7 +25,7 @@ def user_list():
     # consulta ao banco de dados
     cursor.execute("SELECT * FROM poc_api_php.users")
     resultados = cursor.fetchall()
-    # Fecha a conexao com o bamco de dados
+    # Fecha a conexao com o banco de dados
     cursor.close()
     conexao.close()
     return {"users": resultados}
@@ -50,4 +50,25 @@ def user_details(id_user: int):
         return resultado
     else:
         return {"error": "Usuário não encontrado"}, 404
+
+@app.delete("/user/delete/{id_user}", status_code=200)
+def delete_user(id_user: int):
+    conexao = mysql.connector.connect(
+        host='localhost',
+        user='root',
+        password='micklindo',
+        database='poc_api_php'
+    )
+    cursor = conexao.cursor()
+    try:
+        cursor.execute("DELETE FROM poc_api_php.users WHERE id = %s", (id_user,))
+        conexao.commit()
+        if cursor.rowcount == 0:
+            raise HTTPException(status_code=404, detail="Usuário não encontrado")
+        return {"detail": "Usuário apagado com sucesso"}
+    finally:
+        cursor.close()
+        conexao.close()
+
+
 
