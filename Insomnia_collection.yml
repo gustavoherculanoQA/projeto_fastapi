@@ -1,0 +1,297 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Scratch Pad
+meta:
+  id: wrk_scratchpad
+  created: 1770470134228
+  modified: 1770470134228
+  description: ""
+collection:
+  - url: "{{ _.base_url }}/token"
+    name: /token
+    meta:
+      id: req_e72f25f7600f4b33a81aa5d1fd797a1c
+      created: 1699884815270
+      modified: 1770503132636
+      isPrivate: false
+      description: ""
+      sortKey: -1699747205754.5
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "root@local.dev",
+        	"password": "qwe123!@A"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.4.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.base_url }}/token/validate"
+    name: /token/validate
+    meta:
+      id: req_9a75dcf1349d49199178e4466ca08ae4
+      created: 1723837972666
+      modified: 1723899242351
+      isPrivate: false
+      description: ""
+      sortKey: -1699747205654.5
+    method: POST
+    headers:
+      - name: User-Agent
+        value: insomnia/8.4.0
+      - name: Authorization
+        value: Bearer
+          eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0IiwiYXVkIjpudWxsLCJleHAiOjE3MjM4NTE0NDAsImlhdCI6MTcyMzg1MTE0MCwidXNyIjp7ImlkIjoxLCJuYW1lIjoicm9vdCIsImVtYWlsIjoicm9vdEBsb2NhbC5kZXYiLCJwYXNzd29yZCI6Ijg0NjRkMmRkZjNmYmMyYTdkNDY2NzdhMzk5ODA5MTkwIiwic3RhdHVzIjoxLCJyb2xlIjowLCJ1cGRhdGVkIjoiMjAyNC0wOC0xNiAyMDowMjo0MCIsImNyZWF0ZWQiOiIyMDIzLTEyLTEwIDAxOjI5OjA4In19.iM2cwupiMbeExFkc_j34VtrI8y-KqpISJyGVkmiHr_g
+        description: ""
+        disabled: true
+      - name: Authorization
+        value: Bearer {{ _.token }}
+        description: ""
+        disabled: false
+    authentication:
+      type: none
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - name: User
+    meta:
+      id: fld_c0d973b42ac34033ba7ea1c351ceaf42
+      created: 1702301580332
+      modified: 1702320860196
+      sortKey: -1702301580332
+      description: ""
+    children:
+      - url: "{{ _.base_url }}/user/list"
+        name: /user/list
+        meta:
+          id: req_8431bfc932cc4a7b81a13526f5df7c97
+          created: 1699745131107
+          modified: 1770497993246
+          isPrivate: false
+          description: ""
+          sortKey: -1702301587876
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/8.4.0
+        authentication:
+          type: bearer
+          disabled: false
+          token: "{{ _.token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/user/details/1"
+        name: /user/details/{id}
+        meta:
+          id: req_499effa96e0c45b4b438593db38243ca
+          created: 1699749280702
+          modified: 1770497750200
+          isPrivate: false
+          description: ""
+          sortKey: -1702301587901
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/8.4.0
+        authentication:
+          type: bearer
+          disabled: false
+          token: "{{ _.token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/user/update/3"
+        name: /user/update/{id}
+        meta:
+          id: req_78db7bf311ad48c6b0d347baa13c55a9
+          created: 1699752115565
+          modified: 1725985552940
+          isPrivate: false
+          description: ""
+          sortKey: -1702301587776
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Priscila Hill",
+            	"email": "priscila@local.dev",
+            	"password": "1234",
+            	"status": 0,
+            	"role": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/8.4.0
+        authentication:
+          type: bearer
+          token: "{{ _.token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/user/delete/4"
+        name: /user/delete/{id}
+        meta:
+          id: req_45d9cab6b20440ba8d39b72afafda358
+          created: 1699753486895
+          modified: 1723837944111
+          isPrivate: false
+          description: ""
+          sortKey: -1702301587726
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/8.4.0
+        authentication:
+          type: bearer
+          token: "{{ _.token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/user/create"
+        name: /user/create
+        meta:
+          id: req_5e313f3aed844c4484906665be834a6c
+          created: 1699753747998
+          modified: 1770502961138
+          isPrivate: false
+          description: ""
+          sortKey: -1702301587926
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Everton Hill",
+            	"email": "hill@teste.qa",
+            	"password": "1234"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/8.4.0
+        authentication:
+          type: bearer
+          token: "{{ _.token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/user/update"
+        name: /user/update (Agora Nao)
+        meta:
+          id: req_1151b3f4c0db4ee4877661f4cd22f4fb
+          created: 1702864508323
+          modified: 1770497917132
+          isPrivate: false
+          description: ""
+          sortKey: -1702301587763.5
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "root - teste",
+            	"email": "root@local.dev",
+            	"password": "root",
+            	"status": 1,
+            	"role": 0
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/8.4.0
+        authentication:
+          type: bearer
+          token: "{{ _.token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1770470146619
+    modified: 1770470146619
+environments:
+  name: Base Environment
+  meta:
+    id: env_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1770470146614
+    modified: 1770470146614
+    isPrivate: false
+  subEnvironments:
+    - name: backend do Bug
+      meta:
+        id: env_b989449f311846a0a0fc1a1b601ce7dc
+        created: 1702864428493
+        modified: 1770503087391
+        isPrivate: false
+        sortKey: 1702864428493
+      data:
+        base_url: http://localhost:7080
+        token: "{% response 'body', 'req_e72f25f7600f4b33a81aa5d1fd797a1c',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'always', 60 %}"
+      color: "#ff8800"
+    - name: backend dudu
+      meta:
+        id: env_9c23472279b041b4ad772b19aa875cbf
+        created: 1770482310219
+        modified: 1770503079300
+        isPrivate: false
+        sortKey: 1708123152800.75
+      data:
+        base_url: http://localhost:8000
+        token: "{% response 'body', 'req_e72f25f7600f4b33a81aa5d1fd797a1c',
+          'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'always', 60 %}"
+      color: "#ff0088"
