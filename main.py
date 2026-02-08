@@ -1,7 +1,7 @@
 from binascii import Error
 from fastapi import FastAPI, HTTPException
 import mysql.connector
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 
 
 app = FastAPI()
@@ -91,6 +91,12 @@ def create_user(user: User):
         )
         if conexao.is_connected():
             cursor = conexao.cursor()
+            
+            if not user.name or not user.email or not user.password:
+             raise HTTPException(
+            status_code=400,
+            detail="Os campos 'name', 'email' e 'password' são obrigatórios e não podem estar vazios."
+        )
 
             # Verificar se o nome já existe
             cursor.execute("SELECT COUNT(*) FROM users WHERE name = %s", (user.name,))
@@ -101,9 +107,9 @@ def create_user(user: User):
             email_exists = cursor.fetchone()[0]
 
             if name_exists > 0:
-                raise HTTPException(status_code=400, detail="Nome já está em uso.")
+                raise HTTPException(status_code=400, detail="Nome já está em uso meu queridão, tente outro ")
             if email_exists > 0:
-                raise HTTPException(status_code=400, detail="Email já está em uso.")
+                raise HTTPException(status_code=400, detail="Email já está em uso, sei que voce gosta desse email, mas não vai dar não :( ")
 
         if conexao.is_connected():
             cursor = conexao.cursor()
@@ -116,7 +122,7 @@ def create_user(user: User):
             conexao.commit()
 
             return {"message": "Usuário criado com sucesso!"}
-
+        
     except Error as e:
         raise HTTPException(status_code=500, detail=f"Erro ao conectar ao banco de dados: {e}")
     finally:
