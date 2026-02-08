@@ -73,7 +73,7 @@ def delete_user(id_user: int):
         cursor.close()
         conexao.close()
 
-
+#Essa misera vai fazer a validacao dos dados com base nesse modelo
 class User(BaseModel):
     name: str
     email: str
@@ -89,6 +89,21 @@ def create_user(user: User):
             password='micklindo',
             database='poc_api_php'
         )
+        if conexao.is_connected():
+            cursor = conexao.cursor()
+
+            # Verificar se o nome já existe
+            cursor.execute("SELECT COUNT(*) FROM users WHERE name = %s", (user.name,))
+            name_exists = cursor.fetchone()[0]
+
+            # Verificar se o email já existe
+            cursor.execute("SELECT COUNT(*) FROM users WHERE email = %s", (user.email,))
+            email_exists = cursor.fetchone()[0]
+
+            if name_exists > 0:
+                raise HTTPException(status_code=400, detail="Nome já está em uso.")
+            if email_exists > 0:
+                raise HTTPException(status_code=400, detail="Email já está em uso.")
 
         if conexao.is_connected():
             cursor = conexao.cursor()
