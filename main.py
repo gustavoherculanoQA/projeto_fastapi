@@ -1,5 +1,8 @@
+from binascii import Error
 from fastapi import FastAPI, HTTPException
 import mysql.connector
+from pydantic import BaseModel
+
 
 app = FastAPI()
 
@@ -71,4 +74,38 @@ def delete_user(id_user: int):
         conexao.close()
 
 
+class User(BaseModel):
+    name: str
+    email: str
+    password: str
 
+@app.post("/user/create", status_code=201)
+def create_user(user: User):
+    try:
+        # Conexão com o banco de dados MySQL
+        conexao = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='micklindo',
+            database='poc_api_php'
+        )
+
+        if conexao.is_connected():
+            cursor = conexao.cursor()
+
+            # Inserção dos dados do usuário
+            query = "INSERT INTO users (name, email, password) VALUES (%s, %s, %s)"
+            values = (user.name, user.email, user.password)
+
+            cursor.execute(query, values)
+            conexao.commit()
+
+            return {"message": "Usuário criado com sucesso!"}
+
+    except Error as e:
+        raise HTTPException(status_code=500, detail=f"Erro ao conectar ao banco de dados: {e}")
+    finally:
+        if conexao.is_connected():
+            cursor.close()
+            conexao.close()
+    
